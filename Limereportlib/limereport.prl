@@ -1,0 +1,4 @@
+QMAKE_PRL_BUILD_DIR = C:/Users/lenovo/Documents/MYNIProj/limereport_1_4_7/build-limereport-Desktop_Qt_5_10_0_MSVC2015_32bit-Release/limereport
+QMAKE_PRO_INPUT = limereport.pro
+QMAKE_PRL_TARGET = limereport.lib
+QMAKE_PRL_CONFIG = lex yacc exceptions depend_includepath testcase_targets import_plugins import_qpa_plugin windows file_copies qmake_use qt warn_on release link_prl incremental flat precompile_header autogen_precompile_source debug_and_release debug_and_release_target embed_manifest_dll embed_manifest_exe shared release no_plugin_manifest win32 msvc copy_dir_files release ReleaseBuild Release build_pass c++11 lib dll create_prl link_prl build_translations zint release ReleaseBuild Release build_pass have_target shared dll exclusive_builds no_autoqmake thread uic opengl moc resources
