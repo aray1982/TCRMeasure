@@ -1,0 +1,10 @@
+ch5->com;
+ch100->com;
+ch6->com;
+ch101->com;
+ch7->com;
+ch102->com;
+ch8->com;
+ch103->com;
+ch9->com;
+ch104->com;

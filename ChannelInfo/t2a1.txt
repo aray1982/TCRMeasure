@@ -1,0 +1,10 @@
+ch136->com;
+ch42->com;
+ch137->com;
+ch43->com;
+ch138->com;
+ch44->com;
+ch139->com;
+ch45->com;
+ch140->com;
+ch46->com;

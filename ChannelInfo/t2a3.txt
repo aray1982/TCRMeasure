@@ -1,0 +1,10 @@
+ch27->com;
+ch122->com;
+ch28->com;
+ch123->com;
+ch29->com;
+ch124->com;
+ch30->com;
+ch125->com;
+ch31->com;
+ch126->com;

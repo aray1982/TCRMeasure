@@ -1,0 +1,10 @@
+ch148->com;
+ch54->com;
+ch149->com;
+ch55->com;
+ch150->com;
+ch56->com;
+ch151->com;
+ch57->com;
+ch152->com;
+ch58->com;
