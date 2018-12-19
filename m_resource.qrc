@@ -1,0 +1,26 @@
+<RCC>
+    <qresource prefix="/Channel">
+        <file alias="t1a1">ChannelInfo/t1a1.txt</file>
+        <file alias="t1a2">ChannelInfo/t1a2.txt</file>
+        <file alias="t1a3">ChannelInfo/t1a3.txt</file>
+        <file alias="t1a4">ChannelInfo/t1a4.txt</file>
+        <file alias="t1a5">ChannelInfo/t1a5.txt</file>
+        <file alias="t1a6">ChannelInfo/t1a6.txt</file>
+        <file alias="t2a1">ChannelInfo/t2a1.txt</file>
+        <file alias="t2a2">ChannelInfo/t2a2.txt</file>
+        <file alias="t2a3">ChannelInfo/t2a3.txt</file>
+        <file alias="t2a4">ChannelInfo/t2a4.txt</file>
+        <file alias="t2a5">ChannelInfo/t2a5.txt</file>
+        <file alias="t2a6">ChannelInfo/t2a6.txt</file>
+    </qresource>
+    <qresource prefix="/Report">
+        <file alias="Temprp">tempreport.lrxml</file>
+        <file alias="TCRrp">Remodel.lrxml</file>
+        <file alias="TCRrpbv">Remodelbv.lrxml</file>
+        <file alias="Prrp">Preport.lrxml</file>
+    </qresource>
+    <qresource prefix="/Iccon">
+        <file>Picresource/Log.jpg</file>
+        <file alias="runflag">Picresource/Main.png</file>
+    </qresource>
+</RCC>
