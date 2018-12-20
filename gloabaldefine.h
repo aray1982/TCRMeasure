@@ -41,6 +41,7 @@ enum Measureoptions{Lr,Mr,Hr,Nr};
  * 增加修正计算补充，仅对实施修正且高温超过100℃实施修正
  * 增加TCR计算计算值选项
  * 对TCR测试过程中的外部测量禁用提示做出优化
+ * test github
 
 */
 
