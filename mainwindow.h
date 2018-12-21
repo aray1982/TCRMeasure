@@ -65,7 +65,7 @@ private:
 
 private:
     void TCRininitial();//TCR初始化
-    void Dataqueryintial();//数据查询初始化
+    bool Dataqueryintial();//数据查询初始化
     void enableTCRmeasure();
     void Proebeinitial();//探针卡初始化
     void CalibrateInitial();//校准初始化

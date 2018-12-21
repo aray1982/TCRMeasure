@@ -101,7 +101,7 @@ void MainWindow::TCRininitial()
 
 }
 
-void MainWindow::Dataqueryintial()
+bool MainWindow::Dataqueryintial()
 {
 
     connect(m_datadialog,SIGNAL(TCRTimeinfo(QDateTime,QDateTime)),this,SLOT(setTCRresult(QDateTime,QDateTime)));
@@ -119,9 +119,10 @@ void MainWindow::Dataqueryintial()
         m_TCRMDialog->setCalibrate();
         m_TCRMDialog->setCoefficient(bdata);
         qDebug()<<"apply biase";
-        return;
+        return true;
     }
     qDebug()<<"no apply biase";
+    return false;
 
 
 }
