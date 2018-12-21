@@ -13,7 +13,7 @@ struct basestr{
     flag_t rstate;//Resistance state
     int dataid;
 };
-static const QString verisonno="1.1.0";
+static const QString verisonno="1.1.1";
 enum TestType{TCR,Probe,Calibrate};
 enum Measureoptions{Lr,Mr,Hr,Nr};
 #pragma execution_character_set("utf-8")
@@ -42,6 +42,9 @@ enum Measureoptions{Lr,Mr,Hr,Nr};
  * 增加TCR计算计算值选项
  * 对TCR测试过程中的外部测量禁用提示做出优化
 
+*/
+/* V1.1.1:
+ * 增加版本显示标示,d表示调试版本呢,b表示修正版本
 */
 
 #endif // GLOABALDEFINE_H

@@ -20,8 +20,15 @@ MainWindow::MainWindow(QWidget *parent) :
         m_dataop->CreateTabels();
     }
     ui->setupUi(this);
+    QString biasflag;//修正标示
     TCRininitial();
-    Dataqueryintial();
+    if(Dataqueryintial())
+    {
+        biasflag="b";
+    }
+    else{
+        biasflag="n";
+    }
     Proebeinitial();
     CalibrateInitial();
     errorHandlerInitial();
@@ -29,9 +36,9 @@ MainWindow::MainWindow(QWidget *parent) :
     setWindowIcon(QIcon(QStringLiteral(":/Iccon/runflag")));
 
 #ifdef DEBUG_NI
-        ui->ver_label->setText("V"+verisonno+"d");
+        ui->ver_label->setText("V"+verisonno+"d"+biasflag);
 #else
-        ui->ver_label->setText("V"+verisonno);
+        ui->ver_label->setText("V"+verisonno+biasflag);
 #endif
 
 
