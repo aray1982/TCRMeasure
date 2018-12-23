@@ -17,7 +17,11 @@ TCRBase::TCRBase(QWidget *parent,QString name,int No) : QWidget(parent),
 {
     m_Button->setText(m_lable);
     QGridLayout *m_lat1=new QGridLayout;
+    m_stateindicator->setStyleSheet("QCheckBox::indicator {width:16px;height: 16px;}"
+                                    "QCheckBox::indicator:checked { image: url(:/QCheckboxPic/sc16); }"
+                                    "QCheckBox::indicator:unchecked{ image: url(:/QCheckboxPic/suc16); }");
     m_stateindicator->setEnabled(false);
+
     m_lat1->addWidget(m_stateindicator,0,0);
     m_lat1->addWidget(m_Button,1,0);
     this->setLayout(m_lat1);
