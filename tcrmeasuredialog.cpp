@@ -828,6 +828,9 @@ void TCRmeasureDialog::GetTCRsetting(TCRsettings setting)
     qDebug()<<"ntemp"<<m_settings.SV2;
     qDebug()<<"htemp"<<m_settings.SV3;
     m_tdataop->setcalculateValue(m_settings.CalV1,m_settings.CalV2,m_settings.CalV3);
+    //m_view->setYRange(m_settings.SV1,m_settings.SV3);
+    qreal temp[3]={m_settings.SV1,m_settings.SV2,m_settings.SV3};
+    m_view->setLimitvalue(temp);
 
 }
 
