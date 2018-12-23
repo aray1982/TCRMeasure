@@ -94,7 +94,7 @@ signals:
 
     void sendError(const QString &Erroinfo,int plateNo);
     void MeasureFinish(int plate, bool Isfirst);//Probe 测试完成;
-    void MeasureFinish();//TCR测量完成
+    void MeasureFinish(bool istempfirst);//TCR测量完成
     void CaliMeasureFinish(int plate,bool Isfirst);//校准测量完成
 
 

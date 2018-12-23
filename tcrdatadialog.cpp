@@ -102,6 +102,7 @@ bool TCRdataDialog::eventFilter(QObject *obj, QEvent *event)
 
 void TCRdataDialog::setTabelData(QList<QStringList> result)
 {
+    qDebug()<<"set Table data";
     if(result.count()==0)
     {
         QMessageBox::warning(NULL,tr("提示!"),tr("没有数据！"),QMessageBox::Yes);
@@ -128,6 +129,7 @@ void TCRdataDialog::setTabelData(QList<QStringList> result)
 
             ui->tableWidget->setItem(i,0,new QTableWidgetItem(singledata.at(0)));
             //qDebug()<<singledata.at(1);
+            ui->tableWidget->setColumnWidth(1,200);
             ui->tableWidget->setItem(i,1,new QTableWidgetItem(singledata.at(1)));
             ui->tableWidget->setItem(i,2,new QTableWidgetItem(singledata.at(2)));
             ui->tableWidget->setItem(i,3,new QTableWidgetItem(singledata.at(3)));
@@ -159,6 +161,7 @@ void TCRdataDialog::setTabelData(QList<QStringList> result)
 
             ui->p_tableWidget->setItem(i,0,new QTableWidgetItem(singledata.at(0)));
             //qDebug()<<singledata.at(1);
+            ui->p_tableWidget->setColumnWidth(1,200);
             ui->p_tableWidget->setItem(i,1,new QTableWidgetItem(singledata.at(1)));
             ui->p_tableWidget->setItem(i,2,new QTableWidgetItem(singledata.at(2)));
             ui->p_tableWidget->setColumnHidden(2,true);

@@ -69,6 +69,7 @@ private:
     TCRdataop *m_tdataop;
     QVector<basestr> m_tcrbaseinfo;
     LimeReport::ReportEngine m_report;
+    QVector<short> tempreportInfo;//临时报表基片信息
 
 
 
@@ -78,6 +79,7 @@ private:
     void ButtonTextcolor(bool settingflag);//背测基片颜色标识
 
     void SetTCRButton(int no);//设定TCRButton
+    void setTCRButtonplus(int no);//设定测试基片颜色
     void StopTCRtest(bool stopMb);
     void RefreshafterTest();//刷新TCR测试界面
     void MbStopoperation();//停止设备操作
@@ -112,8 +114,9 @@ public slots:
     void MBconnectInfo(bool state);//开机modbus连接提示
     void setCalibrate();
     void setCoefficient(qreal* data);
+    void BeginMeasure();//TCRMeasure
 signals:
-    void starmeasure();//TCR start measure;
+    void starmeasure(bool istempfirst);//TCR start measure;
     void sendError(QString error);//send error
     void setDMMrange(int T2range,int T3range);//set rangee abandon?
     void setBaseDelay(int time);//set delay time
@@ -124,6 +127,7 @@ signals:
     void stmeasuretoDMM(short pl,short rno);//通知DMM开始测量
     void transModbusError(const QString &errorinfo,const  int &state);
     void accessTCRM(const bool &switches);
+    void sendTempmeasure(const QVector<short> &tempdata);
 
 protected:
     //QModbusClient *m_modbusDevice;
@@ -135,6 +139,7 @@ private slots:
     void on_TMExit_pushButton_clicked();
     void on_Execute_pushButton_clicked();
     void on_Confirm_pushButton_clicked();
+
 
 
 public:
