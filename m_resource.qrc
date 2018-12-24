@@ -23,4 +23,11 @@
         <file>Picresource/Log.jpg</file>
         <file alias="runflag">Picresource/Main.png</file>
     </qresource>
+    <qresource prefix="/QCheckboxPic">
+        <file alias="sc16">Picresource/selectBc16.png</file>
+        <file alias="sc48">Picresource/selectBc48.png</file>
+        <file alias="suc16">Picresource/selectBuc16.png</file>
+        <file alias="suc48">Picresource/selectBuc48.png</file>
+        <file alias="susc16">Picresource/selectSBuc16.png</file>
+    </qresource>
 </RCC>

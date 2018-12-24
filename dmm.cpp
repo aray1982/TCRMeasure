@@ -358,7 +358,7 @@ bool Dmm::TCRMeasure()
                     /*- Get Absolute Resolution -------------------------------------*/
                     RecordResults(reading);
                     qDebug()<<"The "<<TCRRno<<"value is "<<reading;
-                    emit MeasureFinish();
+                    emit MeasureFinish(false);
                     return true;
 
                 }
@@ -379,7 +379,7 @@ bool Dmm::TCRMeasure()
 
                     }
 
-                    emit MeasureFinish();
+                    emit MeasureFinish(false);
 
                     return false;
                 }

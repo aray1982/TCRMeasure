@@ -47,6 +47,8 @@ MainWindow::MainWindow(QWidget *parent) :
 
 
 
+
+
 }
 
 MainWindow::~MainWindow()
@@ -80,14 +82,19 @@ void MainWindow::TCRininitial()
      connect(m_TCRselDialog,&TCRselDialog::baseRinfo,m_switch,&Switch::reciveInfo);//传送测量板信息
      connect(m_TCRselDialog,&TCRselDialog::baseRinfo,m_TCRMDialog,&TCRmeasureDialog::reciveInfo);//传送测量板信息
      connect(m_TCRselDialog,&TCRselDialog::baseRinfo,m_TCRMDialog,&TCRmeasureDialog::show);//切换测试界面
+     /*
+      * TCR选择界面信息，会将基片信息分发给switch 和TCR测量模块.
+      *
+*/
 
+     connect(m_TCRMDialog,&TCRmeasureDialog::sendTempmeasure,m_switch,&Switch::ReadyMeasure); //临时报表测试
 
 
      connect(m_TCRMDialog,&TCRmeasureDialog::starmeasure,m_switch,&Switch::TCRMeasureplus);
 
      connect(m_TCRMDialog,SIGNAL(stmeasuretoDMM(short,short)),m_dmm,SLOT(ReadyMeasure(short,short)));
 
-     connect(m_dmm,SIGNAL(MeasureFinish()),m_switch,SLOT(TCRMeasureplus()));//dmm 测量完毕回传switch
+     connect(m_dmm,SIGNAL(MeasureFinish(bool)),m_switch,SLOT(TCRMeasureplus(bool)));//dmm 测量完毕回传switch
 
      connect(m_switch,&Switch::TCRsegFmeasure,m_TCRMDialog,&TCRmeasureDialog::intervalDeal);//switch单片完成中间处理
 

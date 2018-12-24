@@ -23,10 +23,13 @@ private:
     QLineSeries *m_series;
 
     QChart *m_chart;
+    qreal limitvalue[3];
 private:
     void Initial();
 public slots:
     void stageProgress(short i);
+    void setLimitvalue(qreal *limitdata);
+    void setYRange(const qreal &lowlimit,const qreal &highlimit);
 };
 
 #endif // PROGRESSVIEW_H

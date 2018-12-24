@@ -110,7 +110,7 @@ void TCRmeasureDialog::Initial()
     Vlayout->addLayout(layout2);
     Vlayout->addLayout(layout3);
     ui->Re_groupBox->setLayout(Vlayout);
-    SetTCRButton(24);
+    setTCRButtonplus(24);
     Istest=false;
     //ui->Execute_pushButton->setEnabled(false);
     ui->state_label->setText(tr("待机中"));
@@ -118,6 +118,14 @@ void TCRmeasureDialog::Initial()
     //connect(this,&TCRmeasureDialog::)
 
     //窗口最大最小化
+    m_btGroup->setExclusive(false);
+    QList<QAbstractButton*> tdbuttons=m_btGroup->buttons();
+    foreach(QAbstractButton *button,tdbuttons)
+    {
+        button->setCheckable(true);
+
+
+    }
 
     Qt::WindowFlags flags=Qt::Dialog;
 
@@ -135,7 +143,10 @@ void TCRmeasureDialog::ButtonTextcolor(bool settingflag)
     foreach (QAbstractButton *button, tdbuttons) {
         QPalette   pal;
         pal.setColor(QPalette::ButtonText, QColor(0,0,0));
+        button->setEnabled(false);
+        button->setChecked(false);
         button->setPalette(pal);
+        button->setStyleSheet("");
 
     }//全部归零
     if(settingflag)
@@ -146,6 +157,21 @@ void TCRmeasureDialog::ButtonTextcolor(bool settingflag)
             QPushButton *tempb=static_cast<QPushButton*>(m_btGroup->button(tempno));
             QPalette   pal;
             pal.setColor(QPalette::ButtonText, QColor(255,69,0));
+            tempb->setEnabled(true);
+            tempb->setChecked(true);
+            tempb->setStyleSheet("\
+                            QPushButton {   \
+                                color:red;    \
+                            }   \
+                            QPushButton:checked{\
+                                background-color: rgb(0,197,205);}\
+                            QPushButton:hover{  \
+                                background-color: rgb(0,238,118); \
+                                border-style: outset;  \
+                              }"
+
+                            );
+            //tempb->setStyleSheet("QPushButton {color:black;}");
             tempb->setPalette(pal);
         }
     }
@@ -173,6 +199,27 @@ void TCRmeasureDialog::SetTCRButton(int no)
             }
 
         }
+
+}
+
+void TCRmeasureDialog::setTCRButtonplus(int no)
+{
+    QList<QAbstractButton*> tbuttons=m_btGroup->buttons();
+        foreach (QAbstractButton * temp, tbuttons) {
+            int curno=m_btGroup->id(temp);
+            //qDebug()<<"currNo"<<curno;
+            if(curno==no)
+            {
+                temp->setChecked(true);
+            }
+            else {
+                temp->setDown(false);
+                temp->setChecked(false);
+            }
+
+
+        }
+
 
 }
 
@@ -208,7 +255,7 @@ void TCRmeasureDialog::RefreshafterTest()
     m_steadytime->stop();
     m_errortime->stop();
     m_stagecounter=0;
-    disconnect(m_steadytime,&QTimer::timeout,this,&TCRmeasureDialog::starmeasure);
+    disconnect(m_steadytime,&QTimer::timeout,this,&TCRmeasureDialog::BeginMeasure);
     disconnect(m_errortime,&QTimer::timeout,this,&TCRmeasureDialog::Overtimedeal);
     Isrunning=false;
     Istest=false;
@@ -216,7 +263,7 @@ void TCRmeasureDialog::RefreshafterTest()
     ui->Execute_pushButton->setText(tr("实行"));
     ui->Execute_pushButton->setEnabled(false);
 
-    SetTCRButton(24);
+    setTCRButtonplus(24);
 
 }
 
@@ -396,107 +443,107 @@ void TCRmeasureDialog::displaytempReport()
 
         QVector<QStringList> totaldata;
         QVector<basestr>::iterator it;
-        for(it=m_tcrbaseinfo.begin();it!=m_tcrbaseinfo.end();it++)
+        foreach(short no, tempreportInfo)
         {
-            //int T_id;
-            QVector<short> valueserque=getchannelNo(it->rstate);
+            basestr tempbase=m_tcrbaseinfo.at(no);
+            QStringList singledata;
+            QVector<short> valueserque=getchannelNo(tempbase.rstate);
+            if(tempbase.sno<6)
+            {
 
-                //it->dataid=T_id;
-                QStringList singledata;
-
-                if(it->sno<6)
+                QString plateno="T1A"+QString::number(tempbase.sno+1);
+                singledata.append(plateno);
+                singledata.append(tempbase.name);
+                auto p=T1data+tempbase.sno;
+                for(int i=0;i<10;i++)
                 {
-
-                    QString plateno="T1A"+QString::number(it->sno+1);
-                    singledata.append(plateno);
-                    singledata.append(it->name);
-                    auto p=T1data+it->sno;
-                    for(int i=0;i<10;i++)
+                    if(valueserque.contains(i))
                     {
-                        if(valueserque.contains(i))
-                        {
-                            double value=*(*p+i);
-                            singledata.append(QString::number(value,'g',10));
+                        double value=*(*p+i);
+                        singledata.append(QString::number(value,'g',10));
 
-
-                        }
-                        else{
-                            singledata.append(QString::number(0));
-                        }
 
                     }
-
-
-
-                }
-                else if(it->sno<12)
-                {
-                    QString plateno="T2A"+QString::number(it->sno+1-6);
-                    singledata.append(plateno);
-                    singledata.append(it->name);
-                    auto p=T2data+(it->sno-6);
-                    for(int i=0;i<10;i++)
-                    {
-                        if(valueserque.contains(i))
-                        {
-                            double value=*(*p+i);
-                            singledata.append(QString::number(value,'g',10));
-
-
-                        }
-                        else{
-                            singledata.append(QString::number(0));
-                        }
-
+                    else{
+                        singledata.append(QString::number(0));
                     }
+
                 }
-                else if(it->sno<18)
-                {
-                    QString plateno="T3A"+QString::number(it->sno+1-12);
-                    singledata.append(plateno);
-                    singledata.append(it->name);
-                    auto p=T3data+(it->sno-12);
-                    for(int i=0;i<10;i++)
-                    {
-                        if(valueserque.contains(i))
-                        {
-                            double value=*(*p+i);
-                            singledata.append(QString::number(value,'g',10));
-
-
-                        }
-                        else{
-                            singledata.append(QString::number(0));
-                        }
-
-                    }
-                }
-                else if(it->sno<24)
-                {
-                    QString plateno="T6A"+QString::number(it->sno+1-18);
-                    singledata.append(plateno);
-                    singledata.append(it->name);
-                    auto p=T6data+(it->sno-18);
-                    for(int i=0;i<10;i++)
-                    {
-                        if(valueserque.contains(i))
-                        {
-                            double value=*(*p+i);
-                            singledata.append(QString::number(value,'g',10));
-
-
-                        }
-                        else{
-                            singledata.append(QString::number(0));
-                        }
-
-                    }
-                }
-                totaldata.append(singledata);
 
 
 
             }
+            else if(tempbase.sno<12)
+            {
+                QString plateno="T2A"+QString::number(tempbase.sno+1-6);
+                singledata.append(plateno);
+                singledata.append(tempbase.name);
+                auto p=T2data+(tempbase.sno-6);
+                for(int i=0;i<10;i++)
+                {
+                    if(valueserque.contains(i))
+                    {
+                        double value=*(*p+i);
+                        singledata.append(QString::number(value,'g',10));
+
+
+                    }
+                    else{
+                        singledata.append(QString::number(0));
+                    }
+
+                }
+            }
+            else if(tempbase.sno<18)
+            {
+                QString plateno="T3A"+QString::number(tempbase.sno+1-12);
+                singledata.append(plateno);
+                singledata.append(tempbase.name);
+                auto p=T3data+(tempbase.sno-12);
+                for(int i=0;i<10;i++)
+                {
+                    if(valueserque.contains(i))
+                    {
+                        double value=*(*p+i);
+                        singledata.append(QString::number(value,'g',10));
+
+
+                    }
+                    else{
+                        singledata.append(QString::number(0));
+                    }
+
+                }
+            }
+            else if(tempbase.sno<24)
+            {
+                QString plateno="T6A"+QString::number(tempbase.sno+1-18);
+                singledata.append(plateno);
+                singledata.append(tempbase.name);
+                auto p=T6data+(tempbase.sno-18);
+                for(int i=0;i<10;i++)
+                {
+                    if(valueserque.contains(i))
+                    {
+                        double value=*(*p+i);
+                        singledata.append(QString::number(value,'g',10));
+
+
+                    }
+                    else{
+                        singledata.append(QString::number(0));
+                    }
+
+                }
+            }
+            totaldata.append(singledata);
+
+
+
+        }
+
+
+
         if(m_tdataop->insertTempreportValue(totaldata))
         {
             //qDebug()<<"create data successful!";
@@ -672,11 +719,11 @@ void TCRmeasureDialog::CycleDeal()
             ui->state_label->setText(tr("阶段1：安定2"));
             m_progressstage=3;
             RefreshProgress();
-            SetTCRButton(24);
+            setTCRButtonplus(24);
             m_steadytime->stop();
 
             m_steadytime->start(m_settings.steadyTime2*60000);
-            connect(m_steadytime,&QTimer::timeout,this,&TCRmeasureDialog::starmeasure);
+            connect(m_steadytime,&QTimer::timeout,this,&TCRmeasureDialog::BeginMeasure);
             emit accessProbe();
             delayProbeban();
 
@@ -689,7 +736,7 @@ void TCRmeasureDialog::CycleDeal()
             RefreshProgress();
             m_errortime->start(m_settings.Uovertime1*60000);
             connect(m_errortime,&QTimer::timeout,this,&TCRmeasureDialog::Overtimedeal);
-            SetTCRButton(24);
+            setTCRButtonplus(24);
             //Istest=false;
             //SetSV(m_settings.SV2);
             //Mbconnect();
@@ -703,10 +750,10 @@ void TCRmeasureDialog::CycleDeal()
             ui->state_label->setText(tr("阶段2：安定2"));
             m_progressstage=6;
             RefreshProgress();
-            SetTCRButton(24);
+            setTCRButtonplus(24);
             m_steadytime->stop();
             m_steadytime->start(m_settings.steadyTime2*60000);
-            connect(m_steadytime,&QTimer::timeout,this,&TCRmeasureDialog::starmeasure);
+            connect(m_steadytime,&QTimer::timeout,this,&TCRmeasureDialog::BeginMeasure);
             emit accessProbe();
             delayProbeban();
             //Istest=false;
@@ -719,7 +766,7 @@ void TCRmeasureDialog::CycleDeal()
             RefreshProgress();
             m_errortime->start(m_settings.Uovertime2*60000);
             connect(m_errortime,&QTimer::timeout,this,&TCRmeasureDialog::Overtimedeal);
-            SetTCRButton(24);
+            setTCRButtonplus(24);
             emit accessProbe();
             //Istest=false;
             emit startMb();
@@ -731,10 +778,10 @@ void TCRmeasureDialog::CycleDeal()
             ui->state_label->setText(tr("阶段3：安定2"));
             m_progressstage=9;
             RefreshProgress();
-            SetTCRButton(24);
+            setTCRButtonplus(24);
             m_steadytime->stop();
             m_steadytime->start(m_settings.steadyTime2*60000);
-            connect(m_steadytime,&QTimer::timeout,this,&TCRmeasureDialog::starmeasure);
+            connect(m_steadytime,&QTimer::timeout,this,&TCRmeasureDialog::BeginMeasure);
             emit accessProbe();
             delayProbeban();
             //Istest=false;
@@ -745,7 +792,7 @@ void TCRmeasureDialog::CycleDeal()
             m_stagecounter=1;
 
 
-            SetTCRButton(24);
+            setTCRButtonplus(24);
             ui->state_label->setText(tr("测试结束"));
             Iscreatedata=false;
             emit accessProbe();
@@ -781,6 +828,9 @@ void TCRmeasureDialog::GetTCRsetting(TCRsettings setting)
     qDebug()<<"ntemp"<<m_settings.SV2;
     qDebug()<<"htemp"<<m_settings.SV3;
     m_tdataop->setcalculateValue(m_settings.CalV1,m_settings.CalV2,m_settings.CalV3);
+    //m_view->setYRange(m_settings.SV1,m_settings.SV3);
+    qreal temp[3]={m_settings.SV1,m_settings.SV2,m_settings.SV3};
+    m_view->setLimitvalue(temp);
 
 }
 
@@ -861,7 +911,7 @@ void TCRmeasureDialog::Cyclefinish()
         displaytempReport();
         ui->Confirm_pushButton->setEnabled(true);
         Istest=false;
-        SetTCRButton(24);
+        setTCRButtonplus(24);
 
     }
     else
@@ -876,7 +926,7 @@ void TCRmeasureDialog::Cyclefinish()
             sendError(tr("记录数据错误"));
             StopTCRtest(false);
         }
-        SetTCRButton(24);
+        setTCRButtonplus(24);
     }
 
 
@@ -886,7 +936,7 @@ void TCRmeasureDialog::Cyclefinish()
 
 void TCRmeasureDialog::intervalDeal()
 {
-    QTimer::singleShot(intervalDealytime,this,SIGNAL(starmeasure()));
+    QTimer::singleShot(intervalDealytime,this,SLOT(BeginMeasure()));
 
 }
 
@@ -896,7 +946,7 @@ void TCRmeasureDialog::setTCRlampindicator(short blate, short rno)
     {
         m_steadytime->stop();
         qDebug()<<"TCR lamp indicator m_stagecouter is"<<m_stagecounter;
-        disconnect(m_steadytime,&QTimer::timeout,this,&TCRmeasureDialog::starmeasure);
+        disconnect(m_steadytime,&QTimer::timeout,this,&TCRmeasureDialog::BeginMeasure);
         switch (m_stagecounter) {
             case 0:
             if(Istest)
@@ -926,7 +976,7 @@ void TCRmeasureDialog::setTCRlampindicator(short blate, short rno)
             }
         QTimer::singleShot(intervalRDelaytime,[this,blate,rno](){emit stmeasuretoDMM(blate,rno);});
     }
-    SetTCRButton(blate);
+    setTCRButtonplus(blate);
 
 
 }
@@ -994,7 +1044,13 @@ void TCRmeasureDialog::setCalibrate()
 void TCRmeasureDialog::setCoefficient(qreal *data)
 {
     coefficientdata[0]=*data;
-     coefficientdata[1]=*(data+1);
+    coefficientdata[1]=*(data+1);
+}
+
+void TCRmeasureDialog::BeginMeasure()
+{
+    emit starmeasure(false);
+
 }
 
 void TCRmeasureDialog::showEvent(QShowEvent *event)
@@ -1020,7 +1076,7 @@ void TCRmeasureDialog::on_Execute_pushButton_clicked()
             ui->Execute_pushButton->setText(tr("停止"));
             ui->Execute_pushButton->setStyleSheet("background-color:lightgreen");
             m_stagecounter=0;
-            SetTCRButton(24);
+            setTCRButtonplus(24);
             Istest=false;
 
             if(createdData())
@@ -1061,12 +1117,47 @@ void TCRmeasureDialog::on_Confirm_pushButton_clicked()
 {
 
 
-    SetTCRButton(24);
+    //setTCRButtonplus(24);
     qDebug()<<m_tdataop->deleteTempreport();
     ui->Confirm_pushButton->setEnabled(false);
     Istest=true;
+
+    //设定第一段温度
     emit readfine(2,m_settings.SV1);
-    emit starmeasure();
+    //开始临时报表测量
+
+    tempreportInfo.clear();
+
+    short tempno=0;
+
+    qDebug()<<"tempreport";
+
+    auto x=m_btGroup->buttons();
+
+    foreach(auto button, x)
+    {
+        qDebug()<<"for cycle";
+        if(button->isEnabled())
+        {
+            qDebug()<<"is enable ";
+            if(button->isChecked())
+            {
+                qDebug()<<"temp no"<<tempno;
+                tempreportInfo.append(tempno);
+
+            }
+            tempno++;
+
+        }
+
+
+    }
+    foreach(auto z,tempreportInfo)
+    {
+        qDebug()<<z;
+    }
+    emit sendTempmeasure(tempreportInfo);
+    //emit starmeasure(false);
 
 
 
@@ -1074,6 +1165,8 @@ void TCRmeasureDialog::on_Confirm_pushButton_clicked()
 
 
 }
+
+
 
 void TCRmeasureDialog::ModbusInit()
 {
@@ -1110,7 +1203,7 @@ void TCRmeasureDialog::valueProcessDeal(const float &value)
             m_modbusRun=false;
             m_progressstage=2;
             RefreshProgress();//显示进程刷新
-            connect(m_steadytime,&QTimer::timeout,this,&TCRmeasureDialog::starmeasure);
+            connect(m_steadytime,&QTimer::timeout,this,&TCRmeasureDialog::BeginMeasure);
             disconnect(m_errortime,&QTimer::timeout,this,&TCRmeasureDialog::Overtimedeal);
             m_steadytime->start(m_settings.steadyTime1*60000);
             delayProbeban();
@@ -1130,11 +1223,11 @@ void TCRmeasureDialog::valueProcessDeal(const float &value)
             qDebug()<<"enter sv2 zone";
             emit StopMb();//停止modbus读取
             m_modbusRun=false;
-            SetTCRButton(24);
+            setTCRButtonplus(24);
             ui->state_label->setText(tr("阶段2：安定1"));
             m_progressstage=5;
             RefreshProgress();
-            connect(m_steadytime,&QTimer::timeout,this,&TCRmeasureDialog::starmeasure);
+            connect(m_steadytime,&QTimer::timeout,this,&TCRmeasureDialog::BeginMeasure);
             m_steadytime->start(m_settings.steadyTime1*60000);
             disconnect(m_errortime,&QTimer::timeout,this,&TCRmeasureDialog::Overtimedeal);
             delayProbeban();
@@ -1155,11 +1248,11 @@ void TCRmeasureDialog::valueProcessDeal(const float &value)
             qDebug()<<"enter sv3 zone";
             emit StopMb();//停止modbus读取
             m_modbusRun=false;
-            SetTCRButton(24);
+            setTCRButtonplus(24);
             ui->state_label->setText(tr("阶段3：安定1"));
             m_progressstage=8;
             RefreshProgress();
-            connect(m_steadytime,&QTimer::timeout,this,&TCRmeasureDialog::starmeasure);
+            connect(m_steadytime,&QTimer::timeout,this,&TCRmeasureDialog::BeginMeasure);
             m_steadytime->start(m_settings.steadyTime1*60000);
             disconnect(m_errortime,&QTimer::timeout,this,&TCRmeasureDialog::Overtimedeal);
             delayProbeban();

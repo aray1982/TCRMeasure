@@ -15,7 +15,8 @@ Switch::Switch(QObject *parent) : QObject(parent),
     PlateNo(0),
     BaseNo(0),
     errorcount(0),
-    currentTesttype(TestType::TCR)
+    currentTesttype(TestType::TCR),
+    IstempTest(false)
 
 {
 
@@ -71,29 +72,6 @@ void Switch::niSwitch_ErrorHandler(ViSession session, ViStatus error)
 
 }
 
-bool Switch::ResultJud(ViStatus status, ViSession vi)
-{
-    qDebug()<<"errorcount"<<errorcount;
-    errorcount++;
-
-
-    if(status==VI_SUCCESS)
-    {
-        qDebug()<<"true status"<<status;
-        qDebug()<<"Result good!";
-        return true;
-
-    }
-    else
-    {
-        qDebug()<<status;
-        //ErrorHandler(vi,status);
-        qDebug()<<"false status"<<status;
-        return false;
-
-    }
-
-}
 
 
 
@@ -226,26 +204,58 @@ void Switch::InitialTCR()
     m_tcrs.currentNo=m_tcrs.currentbase.sno;
     serialNo=0;
     m_tcrs.cbasechannle=getchannelNo(m_tcrs.currentbase.rstate);
+    IstempTest=false;
+}
+
+void Switch::InitialTempreport()
+{
+    short firstno=tempreportdata.at(0);
+    m_tcrs.currentbase=TCRinfo.at(firstno);
+    m_tcrs.currentNo=m_tcrs.currentbase.sno;
+    serialNo=0;
+    m_tcrs.cbasechannle=getchannelNo(m_tcrs.currentbase.rstate);
 }
 
 bool Switch::Tcrautoincr(short &sn)
 {
          sn++;
-        if(sn>=TCRinfo.count())
-        {
-            qDebug()<<"Test finish!";
-            return false;
-        }
-        else
-        {
-            qDebug()<<"renew one";
-            m_tcrs.currentbase=TCRinfo.at(sn);
-            m_tcrs.cbasechannle=getchannelNo(m_tcrs.currentbase.rstate);
-            m_tcrs.currentNo=m_tcrs.currentbase.sno;
-            //m_tcrs.T3count=m_tcrs.cbasechannle.count();
-            return true;
+         if(IstempTest==false)
+         {
+             if(sn>=TCRinfo.count())
+             {
+                 qDebug()<<"Test finish!";
+                 return false;
+             }
+             else
+             {
+                 qDebug()<<"renew one";
+                 m_tcrs.currentbase=TCRinfo.at(sn);
+                 m_tcrs.cbasechannle=getchannelNo(m_tcrs.currentbase.rstate);
+                 m_tcrs.currentNo=m_tcrs.currentbase.sno;
+                 //m_tcrs.T3count=m_tcrs.cbasechannle.count();
+                 return true;
 
-        }
+             }
+         }
+         else {
+             if(sn>=tempreportdata.count())
+             {
+                 qDebug()<<"temp Test finish!";
+                 return false;
+             }
+             else
+             {
+                 qDebug()<<"temp test renew one";
+                 short currentno=tempreportdata.at(sn);
+                 m_tcrs.currentbase=TCRinfo.at(currentno);
+                 m_tcrs.cbasechannle=getchannelNo(m_tcrs.currentbase.rstate);
+                 m_tcrs.currentNo=m_tcrs.currentbase.sno;
+                 //m_tcrs.T3count=m_tcrs.cbasechannle.count();
+                 return true;
+
+             }
+         }
+
 
 }
 
@@ -280,23 +290,6 @@ void Switch::Allswitchclose()
 
 
 
-
-bool Switch::Connect(ViSession vi, ViConstString channel1, ViConstString channel2)
-{
-
-    return ResultJud(niSwitch_Connect(vi,channel1,channel2),vi);
-}
-
-bool Switch::Disconnect(ViSession vi)
-{
-    return ResultJud(niSwitch_DisconnectAll(vi),vi);
-}
-
-bool Switch::Initial(ViChar* resourceName, ViConstString topology, ViSession *vi)
-{
-    return ResultJud(niSwitch_InitWithTopology(ViRsrc(resourceName),topology,VI_FALSE,VI_TRUE,vi),*vi);
-
-}
 
 
 
@@ -548,10 +541,30 @@ QVector<short> Switch::getchannelNo(flag_t rinfo)
 
 }
 
-
-
-void Switch::TCRMeasureplus()
+void Switch::ReadyMeasure(const QVector<short> &tempDatainfo)
 {
+    tempreportdata.clear();
+    tempreportdata=tempDatainfo;
+    IstempTest=true;
+    TCRMeasureplus(true);
+
+}
+
+
+
+void Switch::TCRMeasureplus(bool istempfirst)
+{
+    /* TCR测量流程：
+     * 最初由TCRmeasure dialog 触发，m_tcrs为当前测试片信息，如果为空，则从TCRinfo里面提取，并作递增。
+     * 测量过程不断清空m_tcrs中的当前通道cbaschanle,并执行接通，并触发信号反馈给TCRMeasure dialog 作为中转，由其触发DMM,DMM测量结束再返回本槽函数
+     * 如果通道全部完成，触发单块基片完成信号。
+     * 如果TCRinfo获取基片信息失败，则判断一个周期完成。触发周期完成信号。
+*/
+
+    if(istempfirst)
+    {
+        InitialTempreport();
+    }
     currentTesttype=TestType::TCR;
     qDebug()<<"plus measure";
     short currentseeionNO=0;

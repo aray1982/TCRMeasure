@@ -398,21 +398,41 @@ QGroupBox *TCRselDialog::CreativeT6()
 QGroupBox *TCRselDialog::CreativeResiatance()
 {
     QGroupBox *tempbox=new QGroupBox(tr("电阻选择"),this);
+    //QGroupBox *mtempbox=new QGroupBox(tr("电阻复选"),this);
     QHBoxLayout *templayout=new QHBoxLayout;
     QHBoxLayout *templayout1=new QHBoxLayout;
+    //QHBoxLayout *mhtemplayout1=new QHBoxLayout;
     for(int i=0;i<5;i++)
     {
         QCheckBox *temp=new QCheckBox(this);
+        temp->setLayoutDirection(Qt::RightToLeft);
+        temp->setStyleSheet("QCheckBox::indicator {width:16px;height: 16px;}"
+                            "QCheckBox::indicator:checked { image: url(:/QCheckboxPic/sc16); }"
+                            "QCheckBox::indicator:unchecked{ image: url(:/QCheckboxPic/suc16); }");
         temp->setText("R"+QString::number(i+1));
         m_gpresist.append(temp);
         templayout->addWidget(temp);
     }
 
 
+    m_upboxs->setLayoutDirection(Qt::RightToLeft);
     m_upboxs->setText("R1~5");
+    m_allboxs->setLayoutDirection(Qt::RightToLeft);
     m_allboxs->setText("R1~10");
-    m_upboxs->setStyleSheet("QCheckBox{color:rgb(0,0,205)}");
-    m_allboxs->setStyleSheet("QCheckBox{color:rgb(0,0,205)}");
+    m_upboxs->setStyleSheet("QCheckBox::indicator {width:16px;height: 16px;}"
+                            "QCheckBox::indicator:checked { image: url(:/QCheckboxPic/sc16); }"
+                            "QCheckBox::indicator:unchecked{ image: url(:/QCheckboxPic/susc16); }"
+                            "QCheckBox{color:rgb(0,0,205)}");
+    m_allboxs->setStyleSheet("QCheckBox::indicator {width:16px;height: 16px;}"
+                             "QCheckBox::indicator:checked { image: url(:/QCheckboxPic/sc16); }"
+                             "QCheckBox::indicator:unchecked{ image: url(:/QCheckboxPic/susc16); }"
+                             "QCheckBox{color:rgb(0,0,205)}");
+
+
+    QVBoxLayout *boxlayout=new QVBoxLayout();
+
+    boxlayout->addWidget(m_upboxs);
+    boxlayout->addWidget(m_allboxs);
 
     templayout->addWidget(m_upboxs);
     templayout->addWidget(m_allboxs);
@@ -422,20 +442,38 @@ QGroupBox *TCRselDialog::CreativeResiatance()
     for(int i=0;i<5;i++)
     {
         QCheckBox *temp=new QCheckBox(this);
+        temp->setLayoutDirection(Qt::RightToLeft);
         temp->setText("R"+QString::number(i+6));
+        temp->setStyleSheet("QCheckBox::indicator {width:16px;height: 16px;}"
+                            "QCheckBox::indicator:checked { image: url(:/QCheckboxPic/sc16); }"
+                            "QCheckBox::indicator:unchecked{ image: url(:/QCheckboxPic/suc16); }");
+
         m_gpresist.append(temp);
         templayout1->addWidget(temp);
     }
+    m_duboxs->setLayoutDirection(Qt::RightToLeft);
     m_duboxs->setText("R6~10");
-    m_duboxs->setStyleSheet("QCheckBox{color:rgb(0,0,205)}");
 
+    m_duboxs->setStyleSheet("QCheckBox::indicator {width:16px;height: 16px;}"
+                            "QCheckBox::indicator:checked { image: url(:/QCheckboxPic/sc16); }"
+                            "QCheckBox::indicator:unchecked{ image: url(:/QCheckboxPic/susc16); }"
+                            "QCheckBox{color:rgb(0,0,205)}");
+
+
+    boxlayout->addWidget(m_duboxs);
     templayout1->addWidget(m_duboxs);
     templayout->addStretch(1);
+    templayout->setSpacing(15);
     templayout1->addStretch(1);
+    templayout1->setSpacing(15);
+
     QVBoxLayout *tempVlayout=new QVBoxLayout(this);
     tempVlayout->addLayout(templayout);
     tempVlayout->addLayout(templayout1);
     tempbox->setLayout(tempVlayout);
+
+
+
     return tempbox;
 
 

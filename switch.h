@@ -39,7 +39,7 @@ public:
     };
 
 signals:
-    void StartingMeasure(int ResistanceNo);//abandon
+    //void StartingMeasure(int ResistanceNo);//abandon
     void StartingMeasure(int plate,int Resistancno);//singletest
     void ProbelampIndicator(int Rno,bool switcher,int plate);//Probetest
     void sendError(QString errorinfo,int plateno);
@@ -55,19 +55,16 @@ signals:
 
 private:
     void niSwitch_ErrorHandler(ViSession session, ViStatus error);
-    bool ResultJud(ViStatus status,ViSession vi);//废弃
     void InitialChannel();
 
     //TCR
     void InitialTCR();
-    bool Tcrautoincr(short &sn);//TCR increase;
+    void InitialTempreport();
+    bool Tcrautoincr(short &sn);//TCR increase，基片结束后自增;
     void Allswitchclose();//关闭所有开关卡进程
 
 
 public:
-    bool Connect(ViSession vi,ViConstString channel1,ViConstString channel2);//废弃？
-    bool Disconnect(ViSession vi);//废弃？
-    bool Initial(ViChar* resourceName,ViConstString topology,ViSession *vi);//废弃？
     void Close(ViSession vi);//
     void SetMeasureInfo(int plate, int base);
 
@@ -75,8 +72,8 @@ public:
     QVector<short> getchannelNo(flag_t rinfo);//TCR转换信息为具体通道号码
 
 public slots:
-    
-    void TCRMeasureplus();//TCR测试
+    void ReadyMeasure(const QVector<short> &tempDatainfo );//临时打印信息，转发TCRMeasureplus
+    void TCRMeasureplus(bool istempfirst);//TCR测试
     void reciveInfo(QVector<basestr> info);
 
     void CalibrMeasure(int testplate,bool Isfirst);//校准测试
@@ -109,6 +106,8 @@ private:
     int PlateNo;
     int BaseNo;
     short serialNo;//TCRsequece
+    QVector<short> tempreportdata;//临时报表信息
+    bool IstempTest;//临时报表测试
 //follow as debug function:
     int errorcount;
 signals:

@@ -13,7 +13,7 @@ struct basestr{
     flag_t rstate;//Resistance state
     int dataid;
 };
-static const QString verisonno="1.1.1";
+static const QString verisonno="1.1.2";
 enum TestType{TCR,Probe,Calibrate};
 enum Measureoptions{Lr,Mr,Hr,Nr};
 #pragma execution_character_set("utf-8")
@@ -45,6 +45,10 @@ enum Measureoptions{Lr,Mr,Hr,Nr};
 */
 /* V1.1.1:
  * 增加版本显示标示,d表示调试版本呢,b表示修正版本
+*/
+/* V1.1.2:
+ *  增加临时报表单项选择按钮
+ *  增加按钮电阻选择图标
 */
 
 #endif // GLOABALDEFINE_H
