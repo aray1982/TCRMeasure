@@ -48,6 +48,7 @@ enum Measureoptions{Lr,Mr,Hr,Nr};
 */
 /* V1.1.2:
  *  增加临时报表单项选择按钮
+ *  增加按钮电阻选择图标
 */
 
 #endif // GLOABALDEFINE_H

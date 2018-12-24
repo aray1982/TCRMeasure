@@ -72,29 +72,6 @@ void Switch::niSwitch_ErrorHandler(ViSession session, ViStatus error)
 
 }
 
-bool Switch::ResultJud(ViStatus status, ViSession vi)
-{
-    qDebug()<<"errorcount"<<errorcount;
-    errorcount++;
-
-
-    if(status==VI_SUCCESS)
-    {
-        qDebug()<<"true status"<<status;
-        qDebug()<<"Result good!";
-        return true;
-
-    }
-    else
-    {
-        qDebug()<<status;
-        //ErrorHandler(vi,status);
-        qDebug()<<"false status"<<status;
-        return false;
-
-    }
-
-}
 
 
 
@@ -313,23 +290,6 @@ void Switch::Allswitchclose()
 
 
 
-
-bool Switch::Connect(ViSession vi, ViConstString channel1, ViConstString channel2)
-{
-
-    return ResultJud(niSwitch_Connect(vi,channel1,channel2),vi);
-}
-
-bool Switch::Disconnect(ViSession vi)
-{
-    return ResultJud(niSwitch_DisconnectAll(vi),vi);
-}
-
-bool Switch::Initial(ViChar* resourceName, ViConstString topology, ViSession *vi)
-{
-    return ResultJud(niSwitch_InitWithTopology(ViRsrc(resourceName),topology,VI_FALSE,VI_TRUE,vi),*vi);
-
-}
 
 
 

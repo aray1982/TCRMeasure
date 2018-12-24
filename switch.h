@@ -39,7 +39,7 @@ public:
     };
 
 signals:
-    void StartingMeasure(int ResistanceNo);//abandon
+    //void StartingMeasure(int ResistanceNo);//abandon
     void StartingMeasure(int plate,int Resistancno);//singletest
     void ProbelampIndicator(int Rno,bool switcher,int plate);//Probetest
     void sendError(QString errorinfo,int plateno);
@@ -55,7 +55,6 @@ signals:
 
 private:
     void niSwitch_ErrorHandler(ViSession session, ViStatus error);
-    bool ResultJud(ViStatus status,ViSession vi);//废弃
     void InitialChannel();
 
     //TCR
@@ -66,9 +65,6 @@ private:
 
 
 public:
-    bool Connect(ViSession vi,ViConstString channel1,ViConstString channel2);//废弃？
-    bool Disconnect(ViSession vi);//废弃？
-    bool Initial(ViChar* resourceName,ViConstString topology,ViSession *vi);//废弃？
     void Close(ViSession vi);//
     void SetMeasureInfo(int plate, int base);
 

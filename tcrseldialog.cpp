@@ -405,6 +405,7 @@ QGroupBox *TCRselDialog::CreativeResiatance()
     for(int i=0;i<5;i++)
     {
         QCheckBox *temp=new QCheckBox(this);
+        temp->setLayoutDirection(Qt::RightToLeft);
         temp->setStyleSheet("QCheckBox::indicator {width:16px;height: 16px;}"
                             "QCheckBox::indicator:checked { image: url(:/QCheckboxPic/sc16); }"
                             "QCheckBox::indicator:unchecked{ image: url(:/QCheckboxPic/suc16); }");
@@ -414,7 +415,9 @@ QGroupBox *TCRselDialog::CreativeResiatance()
     }
 
 
+    m_upboxs->setLayoutDirection(Qt::RightToLeft);
     m_upboxs->setText("R1~5");
+    m_allboxs->setLayoutDirection(Qt::RightToLeft);
     m_allboxs->setText("R1~10");
     m_upboxs->setStyleSheet("QCheckBox::indicator {width:16px;height: 16px;}"
                             "QCheckBox::indicator:checked { image: url(:/QCheckboxPic/sc16); }"
@@ -439,6 +442,7 @@ QGroupBox *TCRselDialog::CreativeResiatance()
     for(int i=0;i<5;i++)
     {
         QCheckBox *temp=new QCheckBox(this);
+        temp->setLayoutDirection(Qt::RightToLeft);
         temp->setText("R"+QString::number(i+6));
         temp->setStyleSheet("QCheckBox::indicator {width:16px;height: 16px;}"
                             "QCheckBox::indicator:checked { image: url(:/QCheckboxPic/sc16); }"
@@ -447,8 +451,9 @@ QGroupBox *TCRselDialog::CreativeResiatance()
         m_gpresist.append(temp);
         templayout1->addWidget(temp);
     }
+    m_duboxs->setLayoutDirection(Qt::RightToLeft);
     m_duboxs->setText("R6~10");
-    //m_duboxs->setLayoutDirection(Qt::LeftToRight);
+
     m_duboxs->setStyleSheet("QCheckBox::indicator {width:16px;height: 16px;}"
                             "QCheckBox::indicator:checked { image: url(:/QCheckboxPic/sc16); }"
                             "QCheckBox::indicator:unchecked{ image: url(:/QCheckboxPic/susc16); }"
@@ -458,7 +463,9 @@ QGroupBox *TCRselDialog::CreativeResiatance()
     boxlayout->addWidget(m_duboxs);
     templayout1->addWidget(m_duboxs);
     templayout->addStretch(1);
+    templayout->setSpacing(15);
     templayout1->addStretch(1);
+    templayout1->setSpacing(15);
 
     QVBoxLayout *tempVlayout=new QVBoxLayout(this);
     tempVlayout->addLayout(templayout);
