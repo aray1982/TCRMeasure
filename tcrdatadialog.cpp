@@ -379,7 +379,7 @@ void TCRdataDialog::on_Ppdf_pushButton_clicked()
 void TCRdataDialog::showEvent(QShowEvent *event)
 {
     QDate currentdate=QDate::currentDate();
-    QDate begindate=currentdate.addDays(-1);
+    QDate begindate=currentdate.addDays(-30);
     QDate enddate=currentdate.addDays(1);
     ui->St_dateTimeEdit->setDate(begindate);
     ui->Et_dateTimeEdit->setDate(enddate);

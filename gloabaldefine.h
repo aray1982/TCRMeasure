@@ -13,7 +13,7 @@ struct basestr{
     flag_t rstate;//Resistance state
     int dataid;
 };
-static const QString verisonno="1.1.2";
+static const QString verisonno="1.1.3";
 enum TestType{TCR,Probe,Calibrate};
 enum Measureoptions{Lr,Mr,Hr,Nr};
 #pragma execution_character_set("utf-8")
@@ -50,5 +50,8 @@ enum Measureoptions{Lr,Mr,Hr,Nr};
  *  增加临时报表单项选择按钮
  *  增加按钮电阻选择图标
 */
+/* V1.1.3:
+ * 外部测量小数位调整
+ */
 
 #endif // GLOABALDEFINE_H
