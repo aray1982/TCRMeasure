@@ -55,5 +55,9 @@ enum Measureoptions{Lr,Mr,Hr,Nr};
  * 计算TCR参数错误调整
  * 安定时间显示,自动打印开启
  */
+/*
+ * V1.1.4
+ * 修正方式改变
+*/
 
 #endif // GLOABALDEFINE_H
