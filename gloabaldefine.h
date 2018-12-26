@@ -58,6 +58,7 @@ enum Measureoptions{Lr,Mr,Hr,Nr};
 /*
  * V1.1.4
  * 修正方式改变
+ * 修正报表变更
 */
 
 #endif // GLOABALDEFINE_H
