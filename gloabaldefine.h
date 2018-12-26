@@ -13,7 +13,7 @@ struct basestr{
     flag_t rstate;//Resistance state
     int dataid;
 };
-static const QString verisonno="1.1.3";
+static const QString verisonno="1.1.4";
 enum TestType{TCR,Probe,Calibrate};
 enum Measureoptions{Lr,Mr,Hr,Nr};
 #pragma execution_character_set("utf-8")
