@@ -26,10 +26,12 @@ public:
     void disconnectDB();
     bool insertTempreportValue(QVector<QStringList> data);//临时报表
     bool deleteTempreport();//删除临时报表
-    void setcalculateValue(const qreal&htemp,const qreal &mtemp, const qreal &ltemp);//设定TCR计算温度
+    void setcalculateValue(const qreal&ltemp,const qreal &mtemp, const qreal &htemp);//设定TCR计算温度
+    bool debugCalTCR(QVector<int> &totaldata);//调试更正TCR数据
 private:
     qreal calculateHTCR(qreal Hvalue,qreal Nvalue);//高温TCR计算
     qreal calculateCTCR(qreal Lvalue,qreal Nvalue);//低温TCR计算
+
 };
 
 #endif // TCRDATAOP_H

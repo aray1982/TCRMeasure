@@ -52,6 +52,7 @@ enum Measureoptions{Lr,Mr,Hr,Nr};
 */
 /* V1.1.3:
  * 外部测量小数位调整
+ * 计算TCR参数错误调整
  */
 
 #endif // GLOABALDEFINE_H

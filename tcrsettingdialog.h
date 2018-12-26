@@ -19,7 +19,7 @@ struct TCRsettings{
     int Uovertime1=120;
     int Uovertime2=120;
     int Pbdelaytime=1;//禁用外部测试时间
-    bool Isprint=false;
+    bool Isprint=true;
 
 };
 

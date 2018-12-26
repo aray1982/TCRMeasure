@@ -336,7 +336,7 @@ bool Dataop::Timequery(QDateTime st, QDateTime et, QList<QStringList> &result, T
             else{
             QSqlQuery sql_query;
 
-            QString select_sql = "select * from TCRName where recordtime >datetime('"+st.toString("yyyy-MM-dd hh:mm:ss")+"') and recordtime <datetime('"+et.toString("yyyy-MM-dd hh:mm:ss")+"')";
+            QString select_sql = "select * from TCRName where recordtime >datetime('"+st.toString("yyyy-MM-dd hh:mm:ss")+"') and recordtime <datetime('"+et.toString("yyyy-MM-dd hh:mm:ss")+"') order by recordtime DESC";
             qDebug()<<select_sql;
             result.clear();
             if(!sql_query.exec(select_sql))
@@ -382,7 +382,7 @@ bool Dataop::Timequery(QDateTime st, QDateTime et, QList<QStringList> &result, T
             else{
             QSqlQuery sql_query;
 
-            QString select_sql = "select * from ProbeName where recordtime >datetime('"+st.toString("yyyy-MM-dd hh:mm:ss")+"') and recordtime <datetime('"+et.toString("yyyy-MM-dd hh:mm:ss")+"')";
+            QString select_sql = "select * from ProbeName where recordtime >datetime('"+st.toString("yyyy-MM-dd hh:mm:ss")+"') and recordtime <datetime('"+et.toString("yyyy-MM-dd hh:mm:ss")+"') order by recordtime DESC";
             qDebug()<<select_sql;
             result.clear();
             if(!sql_query.exec(select_sql))
