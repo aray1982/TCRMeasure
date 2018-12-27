@@ -237,7 +237,7 @@ bool Dataop::Namequery(QString baseName, QList<QStringList> &result, Tabletype t
             else{
             QSqlQuery sql_query;
 
-            QString select_sql = "select * from TCRName where basename like '%"+baseName+"%'";
+            QString select_sql = "select * from TCRName where basename like '%"+baseName+"%' order by recordtime DESC";
             qDebug()<<select_sql;
             if(!sql_query.exec(select_sql))
             {
@@ -281,7 +281,7 @@ bool Dataop::Namequery(QString baseName, QList<QStringList> &result, Tabletype t
             else{
             QSqlQuery sql_query;
 
-            QString select_sql = "select * from ProbeName where batchname like '%"+baseName+"%'";
+            QString select_sql = "select * from ProbeName where batchname like '%"+baseName+"%' order by recordtime DESC";
             qDebug()<<select_sql;
             if(!sql_query.exec(select_sql))
             {

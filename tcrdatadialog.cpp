@@ -127,9 +127,10 @@ void TCRdataDialog::setTabelData(QList<QStringList> result)
         foreach (QStringList singledata, result) {
             ui->tableWidget->insertRow(i);
 
+            ui->tableWidget->setColumnWidth(0,150);
             ui->tableWidget->setItem(i,0,new QTableWidgetItem(singledata.at(0)));
             //qDebug()<<singledata.at(1);
-            ui->tableWidget->setColumnWidth(1,200);
+            ui->tableWidget->setColumnWidth(1,150);
             ui->tableWidget->setItem(i,1,new QTableWidgetItem(singledata.at(1)));
             ui->tableWidget->setItem(i,2,new QTableWidgetItem(singledata.at(2)));
             ui->tableWidget->setItem(i,3,new QTableWidgetItem(singledata.at(3)));
@@ -158,10 +159,11 @@ void TCRdataDialog::setTabelData(QList<QStringList> result)
         ui->p_tableWidget->setHorizontalHeaderLabels(header);
         foreach (QStringList singledata, result) {
             ui->p_tableWidget->insertRow(i);
+            ui->tableWidget->setColumnWidth(0,150);
 
             ui->p_tableWidget->setItem(i,0,new QTableWidgetItem(singledata.at(0)));
             //qDebug()<<singledata.at(1);
-            ui->p_tableWidget->setColumnWidth(1,200);
+            ui->p_tableWidget->setColumnWidth(1,150);
             ui->p_tableWidget->setItem(i,1,new QTableWidgetItem(singledata.at(1)));
             ui->p_tableWidget->setItem(i,2,new QTableWidgetItem(singledata.at(2)));
             ui->p_tableWidget->setColumnHidden(2,true);

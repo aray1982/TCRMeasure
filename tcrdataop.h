@@ -18,7 +18,7 @@ private:
     qreal lcalvalue;//低温计算值
 public:
     bool insertRvalue(int T_id, int Rno, double value, int serialno) override;//插入具体电阻值
-    void setTCRcalvalue(qreal htemp,qreal ltemp,qreal ntemp);//设定TCR计算温度
+    //void setTCRcalvalue(qreal htemp,qreal ltemp,qreal ntemp);//设定TCR计算温度
     bool UpdateTCR(int T_id);//更新TCR数据
     bool addcurrentDateTime(int T_id) override;
     bool deleteData(int T_id) override;

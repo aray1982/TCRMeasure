@@ -166,13 +166,13 @@ bool TCRdataop::insertRvalue(int T_id, int Rno, double value, int serialno)
 
 }
 
-void TCRdataop::setTCRcalvalue(qreal htemp, qreal ltemp, qreal ntemp)
+/*void TCRdataop::setTCRcalvalue(qreal htemp, qreal ltemp, qreal ntemp)
 {
     hcalvalue=htemp;
     lcalvalue=ltemp;
     ncalvalue=ntemp;
 
-}
+}*/
 
 bool TCRdataop::UpdateTCR(int T_id)
 {
