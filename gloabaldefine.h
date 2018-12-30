@@ -13,7 +13,7 @@ struct basestr{
     flag_t rstate;//Resistance state
     int dataid;
 };
-static const QString verisonno="1.1.2";
+static const QString verisonno="1.1.4";
 enum TestType{TCR,Probe,Calibrate};
 enum Measureoptions{Lr,Mr,Hr,Nr};
 #pragma execution_character_set("utf-8")
@@ -49,6 +49,19 @@ enum Measureoptions{Lr,Mr,Hr,Nr};
 /* V1.1.2:
  *  增加临时报表单项选择按钮
  *  增加按钮电阻选择图标
+*/
+/* V1.1.3:
+ * 外部测量小数位调整
+ * 计算TCR参数错误调整
+ * 安定时间显示,自动打印开启
+ */
+/*
+ * V1.1.4
+ * 修正方式改变
+ * 修正报表变更
+ * 修正外部测量异常中止(延时启用测试相关按钮)
+ * 优化查询结果,按时间顺序排序,调整显示宽度
+ * 废除原有TCR设定计算值函数
 */
 
 #endif // GLOABALDEFINE_H

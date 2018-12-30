@@ -166,13 +166,13 @@ bool TCRdataop::insertRvalue(int T_id, int Rno, double value, int serialno)
 
 }
 
-void TCRdataop::setTCRcalvalue(qreal htemp, qreal ltemp, qreal ntemp)
+/*void TCRdataop::setTCRcalvalue(qreal htemp, qreal ltemp, qreal ntemp)
 {
     hcalvalue=htemp;
     lcalvalue=ltemp;
     ncalvalue=ntemp;
 
-}
+}*/
 
 bool TCRdataop::UpdateTCR(int T_id)
 {
@@ -483,12 +483,52 @@ bool TCRdataop::deleteTempreport()
 
 }
 
-void TCRdataop::setcalculateValue(const qreal &htemp, const qreal &mtemp, const qreal &ltemp)
+void TCRdataop::setcalculateValue(const qreal &ltemp, const qreal &mtemp, const qreal &htemp)
 {
     hcalvalue=htemp;
     ncalvalue=mtemp;
     lcalvalue=ltemp;
 
+
+}
+
+bool TCRdataop::debugCalTCR(QVector<int> &totaldata)
+{
+    if (!connect())
+        {
+            qDebug() << "Error: Failed to connect database." << m_db.lastError();
+            //QMessageBox::warning(NULL,"warning! connect fail!",m_db.lastError().text(),QMessageBox::Yes);
+            return false;
+        }
+        else
+        {
+            QSqlQuery sql_query;
+            QString acdb_sql="select T_id from TCRName";
+            sql_query.prepare(acdb_sql);
+            if(!sql_query.exec())
+            {
+                qDebug()<<sql_query.lastError();
+                close();
+                return false;
+
+            }
+            else
+            {
+                QVector<int> totaldatas;
+                totaldatas.clear();
+                while(sql_query.next())
+                {
+                    int tid=sql_query.value(0).toInt();
+                    totaldatas.append(tid);
+                    //this->UpdateTCR(tid);
+
+                }
+                totaldata=totaldatas;
+
+                close();
+                return true;
+            }
+    }
 
 }
 
@@ -527,5 +567,7 @@ qreal TCRdataop::calculateCTCR(qreal Lvalue, qreal Nvalue)
 
 
 }
+
+
 
 

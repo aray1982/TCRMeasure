@@ -37,6 +37,7 @@ TCRmeasureDialog::TCRmeasureDialog(QWidget *parent) :
 
     DatathreadInit();
     ui->groupBox_2->setLayout(m_tclayout);
+    //m_tdataop->UpdateTCR(228);
 
     //follow as dataop thread
 
@@ -824,10 +825,12 @@ void TCRmeasureDialog::GetTCRsetting(TCRsettings setting)
     ui->lotemp_label->setText(QString::number(m_settings.SV1));
     ui->notemp_label->setText(QString::number(m_settings.SV2));
     ui->hitemp_label->setText(QString::number(m_settings.SV3));
-    qDebug()<<"ltemp"<<m_settings.SV1;
-    qDebug()<<"ntemp"<<m_settings.SV2;
-    qDebug()<<"htemp"<<m_settings.SV3;
+
     m_tdataop->setcalculateValue(m_settings.CalV1,m_settings.CalV2,m_settings.CalV3);
+
+    ui->stime1_label->setText(QString::number(m_settings.steadyTime1)+tr("分钟"));
+    ui->stime2_label->setText(QString::number(m_settings.steadyTime2)+tr("分钟"));
+
     //m_view->setYRange(m_settings.SV1,m_settings.SV3);
     qreal temp[3]={m_settings.SV1,m_settings.SV2,m_settings.SV3};
     m_view->setLimitvalue(temp);
@@ -1305,4 +1308,6 @@ QVector<short> getchannelNo(flag_t rinfo)
         return temp;
 
 }
+
+
 

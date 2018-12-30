@@ -179,7 +179,8 @@ void ProbeTestDialog::RecordData(int i)
             m_dats.currentbaseno++;
             ui->baseno_label->setText(QString::number(m_dats.currentbaseno));
         }
-        ButtonAccess(true);
+        QTimer::singleShot(1000,[=](){ButtonAccess(true);});
+        //ButtonAccess(true);
 
 
         qDebug()<<"clicked yes\n";
@@ -187,7 +188,8 @@ void ProbeTestDialog::RecordData(int i)
         }
         else
         {
-        ButtonAccess(true);
+        QTimer::singleShot(1000,[=](){ButtonAccess(true);});
+        //ButtonAccess(true);
 
 
             qDebug()<<"clicked no\n";
@@ -261,6 +263,12 @@ void ProbeTestDialog::ButtonAccess(bool IsEnable)
         ui->Exit_pushButton->setEnabled(true);
         ui->Print_pushButton->setEnabled(true);
         ui->lRoptium_checkBox->setEnabled(true);
+        ui->Bias_checkBox->setEnabled(true);
+        ui->Plate_comboBox->setEnabled(true);
+        ui->add1_pushButton->setEnabled(true);
+        ui->add10_pushButton->setEnabled(true);
+        ui->sub1_pushButton->setEnabled(true);
+        ui->sub10_pushButton->setEnabled(true);
     }
     else
     {
@@ -268,6 +276,12 @@ void ProbeTestDialog::ButtonAccess(bool IsEnable)
         ui->Exit_pushButton->setEnabled(false);
         ui->Print_pushButton->setEnabled(false);
         ui->lRoptium_checkBox->setEnabled(false);
+        ui->Bias_checkBox->setEnabled(false);
+        ui->Plate_comboBox->setEnabled(false);
+        ui->add1_pushButton->setEnabled(false);
+        ui->add10_pushButton->setEnabled(false);
+        ui->sub1_pushButton->setEnabled(false);
+        ui->sub10_pushButton->setEnabled(false);
     }
 }
 
