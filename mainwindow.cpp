@@ -36,9 +36,9 @@ MainWindow::MainWindow(QWidget *parent) :
     setWindowIcon(QIcon(QStringLiteral(":/Iccon/runflag")));
 
 #ifdef DEBUG_NI
-        ui->ver_label->setText("V"+verisonno+"d"+biasflag);
+        ui->ver_label->setText("V"+QString(APP_VERSION)+"d"+biasflag);
 #else
-        ui->ver_label->setText("V"+verisonno+biasflag);
+        ui->ver_label->setText("V"+QString(APP_VERSION)+biasflag);
 #endif
 
 
@@ -275,8 +275,9 @@ bool MainWindow::errorLogger(const QString &info)
         if(dealfile.open(QIODevice::WriteOnly|QIODevice::Append|QIODevice::Text))
         {
             QTextStream outstream(&dealfile);
+            QString currentDate=QDate::currentDate().toString();
             QString currentTime=QTime::currentTime().toString();
-            outstream<<currentTime<<" "<<info<<endl;
+            outstream<<currentDate<<" "<<currentTime<<" "<<info<<endl;
             return true;
 
         }
@@ -288,8 +289,9 @@ bool MainWindow::errorLogger(const QString &info)
         if(dealfile.open(QFile::WriteOnly|QIODevice::Append|QIODevice::Text))
         {
             QTextStream outstream(&dealfile);
+            QString currentDate=QDate::currentDate().toString();
             QString currentTime=QTime::currentTime().toString();
-            outstream<<currentTime<<" "<<info<<endl;
+            outstream<<currentDate<<" "<<currentTime<<" "<<info<<endl;
             return true;
 
         }
