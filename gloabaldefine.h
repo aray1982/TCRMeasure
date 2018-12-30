@@ -57,11 +57,9 @@ enum Measureoptions{Lr,Mr,Hr,Nr};
  */
 /*
  * V1.1.4
- * 修正方式改变
- * 修正报表变更
  * 修正外部测量异常中止(延时启用测试相关按钮)
  * 优化查询结果,按时间顺序排序,调整显示宽度
- * 废除原有TCR设定计算值函数
+
 */
 
 #endif // GLOABALDEFINE_H
