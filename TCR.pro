@@ -159,4 +159,6 @@ else:unix|win32-g++: PRE_TARGETDEPS += $$PWD/NIlib/libniswitch.a
  # 优化查询结果,按时间顺序排序,调整显示宽度
  # 废除原有TCR设定计算值函数
  # 添加正式版本控制系统
+ # V1.2.0.0
+ # 调整代码结构，增加PRI文件
 #/
