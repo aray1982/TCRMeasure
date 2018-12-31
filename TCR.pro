@@ -9,8 +9,18 @@ QMAKE_LFLAGS += /MANIFESTUAC:\"level=\'requireAdministrator\' uiAccess=\'false\'
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
+include  (./Dataop/dataop.pri)
+include  (./NIop/NIop.pri)
+include  (./Probe/Probe.pri)
+include  (./TCR/TCR.pri)
+include  (./Dataquery/Dataquery.pri)
+include  (./Calibrate/Calibrate.pri)
+include  (./Mainwindow/Mainwindow.pri)
+include  (./Other/Other.pri)
 
-VERSION = 1.1.5.0
+
+
+VERSION = 1.2.0.0
 RC_ICONS = SunteckICON.ico
 QMAKE_TARGET_COMPANY = "Sunteck"
 QMAKE_TARGET_PRODUCT = "TCR Measure System"
@@ -35,38 +45,11 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 
-SOURCES += \
-        main.cpp \
-        mainwindow.cpp \
-    baseplate.cpp \
-    displayop.cpp \
-    dmm.cpp \
-    main.cpp \
-    mainwindow.cpp \
-    rlamp.cpp \
-    switch.cpp \
-    tcrsettingdialog.cpp \
-    tcrbase.cpp \
-    tcrbase.cpp \
-    baseplate.cpp \
-    displayop.cpp \
-    dmm.cpp \
-    tcrseldialog.cpp \
-    dataop.cpp \
-    tcrdataop.cpp \
-    tcrmeasuredialog.cpp \
-    probetestdialog.cpp \
-    progressview.cpp \
-    tcrdatadialog.cpp \
-    calanderdialog.cpp \
-    probedata.cpp \
-    calibratedialog.cpp \
-    mymodbus.cpp \
-    mymodbus.cpp
+
+
 
 
 HEADERS += \
-        mainwindow.h \
     NIinclude/ivi.h \
     NIinclude/IviACPwr_ni.h \
     NIinclude/IviCounter_ni.h \
@@ -95,45 +78,7 @@ HEADERS += \
     NIinclude/visa.h \
     NIinclude/visatype.h \
     NIinclude/vpptype.h \
-    baseplate.h \
-    displayop.h \
-    dmm.h \
     gloabaldefine.h \
-    mainwindow.h \
-    rlamp.h \
-    switch.h \
-    tcrsettingdialog.h \
-    tcrbase.h \
-    tcrbase.h \
-    tcrseldialog.h \
-    dataop.h \
-    tcrdataop.h \
-    tcrmeasuredialog.h \
-    probetestdialog.h \
-    progressview.h \
-    tcrdatadialog.h \
-    calanderdialog.h \
-    probedata.h \
-    calibratedialog.h \
-    mymodbus.h \
-    mymodbus.h \
-    mymodbus.h
-
-
-FORMS += \
-        mainwindow.ui \
-    tcrsettingdialog.ui \
-    mainwindow.ui \
-    tcrsettingdialog.ui \
-    tcrseldialog.ui \
-    tcrmeasuredialog.ui \
-    probetestdialog.ui \
-    tcrseldialog.ui \
-    tcrmeasuredialog.ui \
-    probetestdialog.ui \
-    tcrdatadialog.ui \
-    calanderdialog.ui \
-    calibratedialog.ui
 
 
 

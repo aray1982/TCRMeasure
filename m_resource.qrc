@@ -14,10 +14,10 @@
         <file alias="t2a6">ChannelInfo/t2a6.txt</file>
     </qresource>
     <qresource prefix="/Report">
-        <file alias="Temprp">tempreport.lrxml</file>
-        <file alias="TCRrp">Remodel.lrxml</file>
-        <file alias="TCRrpbv">Remodelbv.lrxml</file>
-        <file alias="Prrp">Preport.lrxml</file>
+        <file alias="Temprp">Report/tempreport.lrxml</file>
+        <file alias="TCRrp">Report/Remodel.lrxml</file>
+        <file alias="TCRrpbv">Report/Remodelbv.lrxml</file>
+        <file alias="Prrp">Report/Preport.lrxml</file>
     </qresource>
     <qresource prefix="/Iccon">
         <file>Picresource/Log.jpg</file>
