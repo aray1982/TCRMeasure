@@ -164,4 +164,5 @@ else:unix|win32-g++: PRE_TARGETDEPS += $$PWD/NIlib/libniswitch.a
  # 修正外部测量报表格式
  # V1.2.0.1
  # 修正TCR报表,维持原有修正,对小于2000000以下维持实际值
+ # 版本正式发布
 #/
