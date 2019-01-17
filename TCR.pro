@@ -20,7 +20,7 @@ include  (./Other/Other.pri)
 
 
 
-VERSION = 1.2.0.0
+VERSION = 1.2.0.1
 RC_ICONS = SunteckICON.ico
 QMAKE_TARGET_COMPANY = "Sunteck"
 QMAKE_TARGET_PRODUCT = "TCR Measure System"
@@ -162,4 +162,6 @@ else:unix|win32-g++: PRE_TARGETDEPS += $$PWD/NIlib/libniswitch.a
  # V1.2.0.0
  # 调整代码结构，增加PRI文件
  # 修正外部测量报表格式
+ # V1.2.0.1
+ # 修正TCR报表,维持原有修正,对小于2000000以下维持实际值
 #/
