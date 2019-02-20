@@ -27,7 +27,7 @@
      <string/>
     </property>
     <property name="pixmap">
-     <pixmap resource="m_resource.qrc">:/Iccon/Picresource/Log.jpg</pixmap>
+     <pixmap resource="../m_resource.qrc">:/Iccon/Picresource/Log.jpg</pixmap>
     </property>
    </widget>
    <widget class="QPushButton" name="Probe_pushButton">
@@ -149,7 +149,7 @@
      <rect>
       <x>250</x>
       <y>320</y>
-      <width>91</width>
+      <width>131</width>
       <height>16</height>
      </rect>
     </property>
@@ -185,7 +185,7 @@
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <resources>
-  <include location="m_resource.qrc"/>
+  <include location="../m_resource.qrc"/>
  </resources>
  <connections/>
 </ui>

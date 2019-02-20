@@ -38,7 +38,7 @@ MainWindow::MainWindow(QWidget *parent) :
 #ifdef DEBUG_NI
         ui->ver_label->setText("V"+QString(APP_VERSION)+"d"+biasflag);
 #else
-        ui->ver_label->setText("V"+QString(APP_VERSION)+biasflag);
+        ui->ver_label->setText("V"+QString(APP_VERSION)+biasflag+"n");
 #endif
 
 
@@ -244,11 +244,11 @@ bool MainWindow::ConfigFileinfoDeal(qreal *coef)
        {
            QTextStream out(&dealfile);
            out<<"Bias config:1"<<endl;
-           out<<"Rbias:3200000000"<<endl;
-           out<<"Rcore:4000000000"<<endl;
+           out<<"Rbias:1.5"<<endl;
+           out<<"Rcore:35"<<endl;
            dealfile.close();
-           (*coef)=3200000000;
-           *(coef+1)=4000000000;
+           (*coef)=1.5;
+           *(coef+1)=35;
            return true;
 
        }

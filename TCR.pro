@@ -20,7 +20,7 @@ include  (./Other/Other.pri)
 
 
 
-VERSION = 1.2.0.1
+VERSION = 1.2.0.12
 RC_ICONS = SunteckICON.ico
 QMAKE_TARGET_COMPANY = "Sunteck"
 QMAKE_TARGET_PRODUCT = "TCR Measure System"
@@ -165,4 +165,7 @@ else:unix|win32-g++: PRE_TARGETDEPS += $$PWD/NIlib/libniswitch.a
  # V1.2.0.1
  # 修正TCR报表,维持原有修正,对小于2000000以下维持实际值
  # 版本正式发布
+ # V1.2.0.12
+ # 调整修正报表
+ # 调整修正系数为1.5,35
 #/
