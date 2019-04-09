@@ -1,6 +1,6 @@
 ﻿#ifndef GLOABALDEFINE_H
 #define GLOABALDEFINE_H
-//#define DEBUG_NI
+#define DEBUG_NI
 #define setbit(x,y) x|=(1<<y) //置位操作
 #define clrbit(x,y) x&=~(1<<y) //清零操作
 #define cpare(x,y) ((x&(1<<y))==qPow(2,y)) //比较操作

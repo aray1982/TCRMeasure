@@ -191,6 +191,29 @@ void TCRdataDialog::setCoefficient(qreal *data)
 
 }
 
+void TCRdataDialog::setATCR(double *ATCR,int T_id)
+{
+    m_report.loadFromFile(":/Report/TCRrpbv");
+    m_report.dataManager()->setReportVariable("Rbias",coefficientdata[0]);
+    m_report.dataManager()->setReportVariable("Rcore",coefficientdata[1]);
+    m_report.dataManager()->setReportVariable("ATCR1",*ATCR);
+    m_report.dataManager()->setReportVariable("ATCR2",*(ATCR+1));
+    m_report.dataManager()->setReportVariable("ATCR3",*(ATCR+2));
+    m_report.dataManager()->setReportVariable("ATCR4",*(ATCR+3));
+    QString currentDir=QDir::currentPath();
+    //qDebug()<<currentDir;
+    QString path=currentDir+"/Mydatabase.db";
+    //qDebug()<<path;
+    m_report.dataManager()->setReportVariable("datasource",path);
+    m_report.dataManager()->setReportVariable("T_id",T_id);
+
+
+
+m_preiew->refreshPages();
+
+
+}
+
 void TCRdataDialog::on_Query_pushButton_clicked()
 {
     if(ui->Name_radioButton->isChecked())
@@ -305,14 +328,23 @@ void TCRdataDialog::on_tableWidget_cellClicked(int row, int column)
         {
             if(highTemp>=100)
             {
-                m_report.loadFromFile(":/Report/TCRrpbv");
-                m_report.dataManager()->setReportVariable("Rbias",coefficientdata[0]);
-                m_report.dataManager()->setReportVariable("Rcore",coefficientdata[1]);
+
+                emit calculateATCR(temp->text().toInt());
 
             }
             else
             {
                 m_report.loadFromFile(":/Report/TCRrp");
+                QString currentDir=QDir::currentPath();
+                //qDebug()<<currentDir;
+                QString path=currentDir+"/Mydatabase.db";
+                //qDebug()<<path;
+                m_report.dataManager()->setReportVariable("datasource",path);
+                m_report.dataManager()->setReportVariable("T_id",temp->text());
+
+
+
+            m_preiew->refreshPages();
             }
 
 
@@ -320,18 +352,19 @@ void TCRdataDialog::on_tableWidget_cellClicked(int row, int column)
         else
         {
             m_report.loadFromFile(":/Report/TCRrp");
+            QString currentDir=QDir::currentPath();
+            //qDebug()<<currentDir;
+            QString path=currentDir+"/Mydatabase.db";
+            //qDebug()<<path;
+            m_report.dataManager()->setReportVariable("datasource",path);
+            m_report.dataManager()->setReportVariable("T_id",temp->text());
+
+
+
+        m_preiew->refreshPages();
         }
 
-        QString currentDir=QDir::currentPath();
-        //qDebug()<<currentDir;
-        QString path=currentDir+"/Mydatabase.db";
-        //qDebug()<<path;
-        m_report.dataManager()->setReportVariable("datasource",path);
-        m_report.dataManager()->setReportVariable("T_id",temp->text());
 
-
-
-    m_preiew->refreshPages();
 
 
 }

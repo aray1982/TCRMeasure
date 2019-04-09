@@ -149,6 +149,8 @@ void TCRselDialog::setButtonstate(int no)
     m_upboxs->setChecked(false);
     m_duboxs->setChecked(false);
     m_allboxs->setChecked(false);
+    m_basename->setFocus(Qt::MouseFocusReason);
+
 
 }
 

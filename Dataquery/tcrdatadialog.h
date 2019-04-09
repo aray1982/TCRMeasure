@@ -79,10 +79,12 @@ signals:
     void ProbeTimeinfo(QDateTime st,QDateTime et);
     void ProbeNameinfo(QString name);
     void deleteData(int T_id,Tabletype type);
+    void calculateATCR(int T_id);
 public slots:
     void setTabelData(QList<QStringList> result);
     void setCalibrate();
     void setCoefficient(qreal* data);
+    void setATCR(double *ATCR,int T_id);
 
     //follow as tested
 

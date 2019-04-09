@@ -83,6 +83,8 @@ public slots:
     void saveCalibradata(QVector<qreal> tempdata);
     void errorTransimit(QString info,int dialogNo);
     void accessTCRMbutton(const bool &switches);
+    void setATCR(double *ATCR,int T_id);
+    void getATCR(int T_id);
 
 
 signals:

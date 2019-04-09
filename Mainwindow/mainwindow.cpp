@@ -38,13 +38,18 @@ MainWindow::MainWindow(QWidget *parent) :
 #ifdef DEBUG_NI
         ui->ver_label->setText("V"+QString(APP_VERSION)+"d"+biasflag);
 #else
-        ui->ver_label->setText("V"+QString(APP_VERSION)+biasflag+"n");
+        ui->ver_label->setText("V"+QString(APP_VERSION)+biasflag);
 #endif
 
 
 
-
-
+//follow as Debug;
+        /*double T[4]={0,0,0,0};
+        m_dataop->returnATCR(293,T);
+        for(int i=0;i<4;i++)
+        {
+            qDebug()<<T[i];
+        }*/
 
 
 
@@ -123,6 +128,7 @@ bool MainWindow::Dataqueryintial()
     connect(m_datadialog,SIGNAL(ProbeTimeinfo(QDateTime,QDateTime)),this,SLOT(setProberesult(QDateTime,QDateTime)));
     connect(m_datadialog,SIGNAL(ProbeNameinfo(QString)),this,SLOT(setProberesult(QString)));
     connect(m_datadialog,&TCRdataDialog::deleteData,this,&MainWindow::deleteData);
+    connect(m_datadialog,&TCRdataDialog::calculateATCR,this,&MainWindow::getATCR);
 
     qreal bdata[2]={0};
 
@@ -244,11 +250,11 @@ bool MainWindow::ConfigFileinfoDeal(qreal *coef)
        {
            QTextStream out(&dealfile);
            out<<"Bias config:1"<<endl;
-           out<<"Rbias:1.5"<<endl;
-           out<<"Rcore:35"<<endl;
+           out<<"Rbias:3200000000"<<endl;
+           out<<"Rcore:4000000000"<<endl;
            dealfile.close();
-           (*coef)=1.5;
-           *(coef+1)=35;
+           (*coef)=3200000000;
+           *(coef+1)=4000000000;
            return true;
 
        }
@@ -277,6 +283,8 @@ bool MainWindow::errorLogger(const QString &info)
             QTextStream outstream(&dealfile);
             QString currentDate=QDate::currentDate().toString();
             QString currentTime=QTime::currentTime().toString();
+            qDebug()<<currentDate;
+            qDebug()<<currentTime;
             outstream<<currentDate<<" "<<currentTime<<" "<<info<<endl;
             return true;
 
@@ -291,6 +299,8 @@ bool MainWindow::errorLogger(const QString &info)
             QTextStream outstream(&dealfile);
             QString currentDate=QDate::currentDate().toString();
             QString currentTime=QTime::currentTime().toString();
+            qDebug()<<currentDate;
+            qDebug()<<currentTime;
             outstream<<currentDate<<" "<<currentTime<<" "<<info<<endl;
             return true;
 
@@ -432,6 +442,25 @@ void MainWindow::accessTCRMbutton(const bool &switches)
         ui->TCRmeasure_pushButton->setEnabled(false);
         ui->TCRsetting_pushButton->setEnabled(false);
     }
+
+}
+
+void MainWindow::setATCR(double *ATCR, int T_id)
+{
+    m_datadialog->setATCR(ATCR,T_id);
+}
+
+void MainWindow::getATCR(int T_id)
+{
+    double ATCR[4]={0,0,0,0};
+    m_dataop->returnATCR(T_id,ATCR);
+    for(int i=0;i<4;i++)
+    {
+        qDebug()<<ATCR[i];
+    }
+    setATCR(ATCR,T_id);
+
+
 
 }
 

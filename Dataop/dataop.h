@@ -39,6 +39,7 @@ public:
     bool deleteData(int T_id,Tabletype type);
     bool Calibdataquery(QVector<qreal> &data);
     bool saveCalibdata(QVector<qreal> data);
+    bool returnATCR(int T_id,double *ATCR);
 
 
 

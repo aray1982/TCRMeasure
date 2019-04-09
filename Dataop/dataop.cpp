@@ -636,6 +636,132 @@ bool Dataop::saveCalibdata(QVector<qreal> data)
 
 }
 
+bool Dataop::returnATCR(int T_id, double *ATCR)
+{
+    for(int i=0;i<4;i++)
+    {
+        *(ATCR+i)=0;
+    }
+    QList<QVariantList> result;
+    result.clear();
+    if(!connect())
+        {
+            qDebug()<<"fail to connect"<<m_db.lastError();
+            return false;
+        }
+        else{
+        QSqlQuery sql_query;
+
+        QString select_sql = "select * from TCRData where T_id="+QString::number(T_id)+" order by resistanceno ASC";
+        qDebug()<<select_sql;
+        if(!sql_query.exec(select_sql))
+        {
+            close();
+            qDebug()<<sql_query.lastError();
+            return false;
+        }
+        else
+        {
+            while(sql_query.next())
+            {
+                //QStringList temp1;
+                QVariantList tempValues;
+
+                tempValues.append(sql_query.value(10));
+                tempValues.append(sql_query.value(11));
+                result.append(tempValues);
+            }
+            close();
+            if(result.isEmpty())
+            {
+                qDebug()<<"No result!";
+                return false;
+            }
+            else{
+                double ATCR1=0;
+                double ATCR3=0;
+                short totalNo1=0;
+                short totalNo3=0;
+            for(int i=0;i<5;i++)
+            {
+                QVariantList tempValues1=result.at(i);
+
+                if((tempValues1.at(0).toDouble())==0)
+                {
+                    totalNo1+=0;
+                }
+                else {
+                    totalNo1++;
+                }
+
+                if((tempValues1.at(1).toDouble())==0)
+                {
+                    totalNo3+=0;
+                }
+                else {
+                    totalNo3++;
+                }
+                //qDebug()<<i<<tempValues1.at(0)<<","<<tempValues1.at(1);
+                ATCR1+=tempValues1.at(0).toDouble();
+                ATCR3+=tempValues1.at(1).toDouble();
+
+            }
+            if(ATCR1!=0)
+            {
+                ATCR1/=totalNo1;
+            }
+            if(ATCR3!=0)
+            {
+                ATCR3/=totalNo3;
+            }
+            double ATCR2=0;
+            double ATCR4=0;
+            short totalNo2=0;
+            short totalNo4=0;
+            for(int i=5;i<10;i++)
+            {
+                QVariantList tempValues1=result.at(i);
+
+                if((tempValues1.at(0).toDouble())==0)
+                {
+                    totalNo2+=0;
+                }
+                else {
+                    totalNo2++;
+                }
+
+                if((tempValues1.at(1).toDouble())==0)
+                {
+                    totalNo4+=0;
+                }
+                else {
+                    totalNo4++;
+                }
+                //qDebug()<<i<<tempValues1.at(0)<<","<<tempValues1.at(1);
+                ATCR2+=tempValues1.at(0).toDouble();
+                ATCR4+=tempValues1.at(1).toDouble();
+
+            }
+            if(ATCR2!=0)
+            {
+                ATCR2/=totalNo2;
+            }
+            if(ATCR4!=0)
+            {
+                ATCR4/=totalNo4;
+            }
+            *ATCR=ATCR1;
+            *(ATCR+1)=ATCR2;
+            *(ATCR+2)=ATCR3;
+            *(ATCR+3)=ATCR4;
+            return true;
+            }
+
+        }
+        }
+
+}
+
 
 
 
